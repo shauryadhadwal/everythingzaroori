@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EverythingZaroori — small apps for everyday life</title>
+  <meta name="description" content="EverythingZaroori is a growing suite of small, simple web apps for daily life: a calendar, a SIP calculator, curated stores and more.">
+  <meta property="og:title" content="EverythingZaroori">
+  <meta property="og:description" content="All the zaroori things, in one place. Small, simple web apps for everyday life.">
+  <meta property="og:url" content="https://everythingzaroori.com/">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#fbfbf9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141510" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..600,0..100&family=Geist:wght@400..600&family=Geist+Mono:wght@400..500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!--
+  Illustration sprite. Each <symbol> is a 100x100 everyday object drawn in
+  the sticker style: ink outline (currentColor), paper fill (inherited),
+  and solid ink accents (fill="currentColor"). Use with:
+    <svg class="ill"><use href="#i-chai"/></svg>
+-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-chai" viewBox="0 0 100 100">
+    <path d="M42 8c-4 5 4 8 0 13M56 6c-4 5 4 8 0 13" fill="none"/>
+    <path d="M28 28h44l-6 58H34z"/>
+    <path d="M31.5 50h37l-3.2 36H34.7z" fill="currentColor"/>
+    <path d="M40 32l1.6 16M50 32v16M60 32l-1.6 16" fill="none"/>
+  </symbol>
+
+  <symbol id="i-cooker" viewBox="0 0 100 100">
+    <rect x="72" y="49" width="24" height="9" rx="4.5" fill="currentColor"/>
+    <path d="M20 54h56v24a8 8 0 0 1-8 8H28a8 8 0 0 1-8-8z"/>
+    <path d="M14 56c0-11 15-18 34-18s34 7 34 18z"/>
+    <path d="M43 39V28h10v11"/>
+    <circle cx="48" cy="23" r="5" fill="currentColor"/>
+    <path d="M20 68h56" fill="none"/>
+  </symbol>
+
+  <symbol id="i-umbrella" viewBox="0 0 100 100">
+    <path d="M50 52v28a7 7 0 0 1-14 0" fill="none"/>
+    <path d="M12 52C14 28 30 14 50 14s36 14 38 38c-4-5-15-5-19 0c-4-5-15-5-19 0c-4-5-15-5-19 0c-4-5-15-5-19 0z"/>
+    <path d="M50 14v38M50 14C41 24 33 38 31 52M50 14c9 10 17 24 19 38M50 14V7" fill="none"/>
+  </symbol>
+
+  <symbol id="i-clock" viewBox="0 0 100 100">
+    <circle cx="27" cy="27" r="11" fill="currentColor"/>
+    <circle cx="73" cy="27" r="11" fill="currentColor"/>
+    <path d="M30 80l-8 11M70 80l8 11M44 20h12M50 20v6" fill="none"/>
+    <circle cx="50" cy="56" r="30"/>
+    <path d="M50 40v16l11 8" fill="none"/>
+    <circle cx="50" cy="56" r="3.5" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="i-bulb" viewBox="0 0 100 100">
+    <path d="M14 26l-7-4M86 26l7-4M10 50H3M90 50h7" fill="none"/>
+    <path d="M50 8a27 27 0 0 0-16 48.5c3 2.4 5 6 5 10V70h22v-3.5c0-4.5 2-8.1 5-10.5A27 27 0 0 0 50 8z"/>
+    <path d="M43 58l3-14 4 9 4-9 3 14" fill="none"/>
+    <rect x="38" y="70" width="24" height="14" rx="3" fill="currentColor"/>
+    <path d="M44 92h12" fill="none"/>
+  </symbol>
+
+  <symbol id="i-piggy" viewBox="0 0 100 100">
+    <circle cx="51" cy="16" r="8" fill="currentColor"/>
+    <path d="M30 70v15M43 74v12M57 74v12M70 70v15M17 54c-9 0-9-9-2-9" fill="none"/>
+    <ellipse cx="48" cy="56" rx="32" ry="22"/>
+    <path d="M56 37l9-13 5 16z"/>
+    <rect x="76" y="49" width="11" height="15" rx="4"/>
+    <circle cx="66" cy="50" r="2.8" fill="currentColor"/>
+    <path d="M42 37h16" fill="none"/>
+  </symbol>
+
+  <symbol id="i-bag" viewBox="0 0 100 100">
+    <path d="M37 38v-8a13 13 0 0 1 26 0v8" fill="none"/>
+    <path d="M20 36h60l-5 52H25z"/>
+    <path d="M20 36h60l-.8 9H20.8z" fill="currentColor"/>
+    <circle cx="37" cy="44" r="3.5"/>
+    <circle cx="63" cy="44" r="3.5"/>
+  </symbol>
+
+  <symbol id="i-calendar" viewBox="0 0 100 100">
+    <rect x="14" y="22" width="72" height="66" rx="9"/>
+    <path d="M14 31a9 9 0 0 1 9-9h54a9 9 0 0 1 9 9v12H14z" fill="currentColor"/>
+    <rect x="29" y="11" width="9" height="20" rx="4.5"/>
+    <rect x="62" y="11" width="9" height="20" rx="4.5"/>
+    <g fill="currentColor" stroke="none">
+      <circle cx="29" cy="56" r="3.2"/><circle cx="43" cy="56" r="3.2"/><circle cx="57" cy="56" r="3.2"/><circle cx="71" cy="56" r="3.2"/>
+      <circle cx="29" cy="68" r="3.2"/><circle cx="43" cy="68" r="3.2"/><circle cx="57" cy="68" r="3.2"/><circle cx="71" cy="68" r="3.2"/>
+      <circle cx="29" cy="80" r="3.2"/><circle cx="43" cy="80" r="3.2"/>
+    </g>
+    <circle cx="57" cy="68" r="8" fill="none"/>
+  </symbol>
+
+  <symbol id="i-key" viewBox="0 0 100 100">
+    <path d="M62 54v9h7v-9M77 54v13h7V54"/>
+    <path d="M44 45h44v9H44z"/>
+    <circle cx="28" cy="50" r="17"/>
+    <circle cx="24" cy="50" r="5.5" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="i-scissors" viewBox="0 0 100 100">
+    <path d="M27 8c11 11 24 32 31 50l-7 4C45 46 33 26 27 8z"/>
+    <path d="M73 8C62 19 49 40 42 58l7 4C55 46 67 26 73 8z"/>
+    <path d="M55 61l6 6M45 61l-6 6" fill="none"/>
+    <circle cx="34" cy="77" r="12"/>
+    <circle cx="66" cy="77" r="12"/>
+    <circle cx="50" cy="42" r="3.5" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="i-pencil" viewBox="0 0 100 100">
+    <g transform="rotate(-38 50 50)">
+      <path d="M18 41h54v18H18z"/>
+      <path d="M72 41l20 9-20 9z"/>
+      <path d="M85.5 47.1L92 50l-6.5 2.9z" fill="currentColor"/>
+      <rect x="6" y="41" width="14" height="18" rx="4" fill="currentColor"/>
+      <path d="M20 50h52" fill="none"/>
+    </g>
+  </symbol>
+
+  <symbol id="i-chappal" viewBox="0 0 100 100">
+    <path d="M50 6c15 0 21 14 19 32-1.3 12-4.5 21-4.5 35C64.5 84 58 94 50 94s-14.5-10-14.5-21c0-14-3.2-23-4.5-35C29 20 35 6 50 6z"/>
+    <path d="M50 24L33 52M50 24l17 28" fill="none" stroke-width="7"/>
+    <circle cx="50" cy="24" r="4" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="i-kettle" viewBox="0 0 100 100">
+    <path d="M70 50c16 0 18 24 5 30" fill="none"/>
+    <path d="M30 70L11 50h9l14 13"/>
+    <path d="M22 84c-2-22 5-40 28-40s30 18 28 40z"/>
+    <path d="M35 44c2-6 8-9 15-9s13 3 15 9"/>
+    <circle cx="50" cy="30" r="4.5" fill="currentColor"/>
+    <path d="M24 70h52" fill="none"/>
+  </symbol>
+
+  <symbol id="i-plant" viewBox="0 0 100 100">
+    <path d="M50 54C39 42 37 24 50 10c13 14 11 32 0 44z"/>
+    <path d="M48 56C33 56 20 47 18 32c15-2 28 7 30 24z"/>
+    <path d="M52 56c15 0 28-9 30-24-15-2-28 7-30 24z"/>
+    <path d="M28 56h44l-7 34H35z"/>
+    <rect x="23" y="52" width="54" height="11" rx="3.5" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="i-lock" viewBox="0 0 100 100">
+    <path d="M33 46V32a17 17 0 0 1 34 0v14" fill="none" stroke-width="7"/>
+    <rect x="20" y="44" width="60" height="46" rx="9"/>
+    <circle cx="50" cy="62" r="5.5" fill="currentColor"/>
+    <path d="M50 64v12" fill="none" stroke-width="5"/>
+  </symbol>
+
+  <symbol id="i-bucket" viewBox="0 0 100 100">
+    <path d="M20 40C20 12 80 12 80 40" fill="none"/>
+    <path d="M18 40h64l-8 48H26z"/>
+    <rect x="14" y="36" width="72" height="10" rx="3.5" fill="currentColor"/>
+    <path d="M22 64h56" fill="none"/>
+  </symbol>
+
+  <symbol id="i-glasses" viewBox="0 0 100 100">
+    <path d="M46 51c2.5-4.5 5.5-4.5 8 0M14 50L5 36M86 50l9-14" fill="none"/>
+    <circle cx="30" cy="54" r="16"/>
+    <circle cx="70" cy="54" r="16"/>
+    <path d="M23 49l7-7M63 49l7-7" fill="none"/>
+  </symbol>
+</svg>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="EverythingZaroori home">
+      <svg class="ill brand-mark" aria-hidden="true"><use href="#i-chai"/></svg>
+      <span>everythingzaroori</span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#apps">Apps</a>
+      <a href="#try">Try SIP</a>
+      <a href="#why">Why</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-ink btn-sm" href="#apps">Explore apps</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero wrap">
+    <ul class="portraits" aria-hidden="true">
+      <li class="tile t-blue"><svg class="ill"><use href="#i-umbrella"/></svg></li>
+      <li class="tile t-yellow"><svg class="ill"><use href="#i-bulb"/></svg></li>
+      <li class="tile t-coral"><svg class="ill"><use href="#i-cooker"/></svg></li>
+      <li class="tile t-green"><svg class="ill"><use href="#i-plant"/></svg></li>
+      <li class="tile t-pink"><svg class="ill"><use href="#i-chai"/></svg></li>
+      <li class="tile t-blue"><svg class="ill"><use href="#i-clock"/></svg></li>
+      <li class="tile t-yellow"><svg class="ill"><use href="#i-piggy"/></svg></li>
+      <li class="tile t-coral"><svg class="ill"><use href="#i-chappal"/></svg></li>
+      <li class="tile t-green"><svg class="ill"><use href="#i-key"/></svg></li>
+      <li class="tile t-pink"><svg class="ill"><use href="#i-scissors"/></svg></li>
+      <li class="tile t-blue"><svg class="ill"><use href="#i-kettle"/></svg></li>
+      <li class="tile t-yellow"><svg class="ill"><use href="#i-glasses"/></svg></li>
+    </ul>
+
+    <h1 class="display hero-title">All the zaroori things, in one place.</h1>
+    <p class="lede">EverythingZaroori is a growing suite of small, simple web apps for daily life. A calendar, a SIP calculator, curated stores, and more on the way. Open one, get it done, get on with your day.</p>
+    <div class="hero-cta">
+      <a class="btn btn-ink" href="#apps">Explore the apps</a>
+      <a class="btn btn-ghost" href="#try">Try the SIP calculator</a>
+    </div>
+    <p class="fine">Works in your browser. Nothing to install.</p>
+  </section>
+
+  <!-- Meet -->
+  <section class="meet wrap" id="meet">
+    <p class="eyebrow">meet everythingzaroori</p>
+    <h2 class="display inline-ill">
+      <span class="nw">Plan your week <svg class="ill inl" aria-hidden="true"><use href="#i-calendar"/></svg></span>
+      <span class="nw">Grow your money <svg class="ill inl" aria-hidden="true"><use href="#i-piggy"/></svg></span>
+      <span class="nw">Shop what matters. <svg class="ill inl" aria-hidden="true"><use href="#i-bag"/></svg></span>
+    </h2>
+    <p class="lede">Each app does one job and does it well. No clutter and no long onboarding, just the tool you came for, ready on any screen.</p>
+  </section>
+
+  <!-- Apps -->
+  <section class="apps wrap" id="apps">
+    <div class="section-head">
+      <p class="eyebrow">The suite</p>
+      <h2 class="display h2">Tools for the everyday.</h2>
+    </div>
+
+    <!--
+      To launch an app: change its <article class="app"> to <a class="app" href="/calendar/">
+      (or any URL) and change the status pill to <span class="pill pill-live">Live</span>.
+    -->
+    <div class="app-grid">
+      <article class="app t-blue">
+        <div class="app-art"><svg class="ill" aria-hidden="true"><use href="#i-calendar"/></svg></div>
+        <div class="app-body">
+          <div class="app-top"><h3>Calendar</h3><span class="pill">Coming soon</span></div>
+          <p>A clean calendar for planning your days and weeks, without the clutter.</p>
+        </div>
+      </article>
+
+      <a class="app t-yellow" href="#try">
+        <div class="app-art"><svg class="ill" aria-hidden="true"><use href="#i-piggy"/></svg></div>
+        <div class="app-body">
+          <div class="app-top"><h3>SIP Calculator</h3><span class="pill pill-live">Try it</span></div>
+          <p>See what a monthly SIP could grow into, in rupees, in seconds.</p>
+        </div>
+      </a>
+
+      <article class="app t-coral">
+        <div class="app-art"><svg class="ill" aria-hidden="true"><use href="#i-bag"/></svg></div>
+        <div class="app-body">
+          <div class="app-top"><h3>Curated Stores</h3><span class="pill">Coming soon</span></div>
+          <p>Hand-picked shops for things worth buying. Fewer choices, better ones.</p>
+        </div>
+      </article>
+
+      <article class="app t-pink">
+        <div class="app-art"><svg class="ill" aria-hidden="true"><use href="#i-bulb"/></svg></div>
+        <div class="app-body">
+          <div class="app-top"><h3>More on the way</h3><span class="pill">Brewing</span></div>
+          <p>New zaroori tools get added as they're built. Got an idea? <a href="#faq">Tell us</a>.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Try it: live SIP widget -->
+  <section class="try wrap" id="try">
+    <div class="section-head">
+      <p class="eyebrow">Try one now</p>
+      <h2 class="display h2">
+        A little preview
+        <svg class="ill inl" aria-hidden="true"><use href="#i-chai"/></svg>
+        while the chai brews.
+      </h2>
+    </div>
+
+    <div class="mock">
+      <div class="mock-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="mock-url">everythingzaroori.com/sip</span>
+      </div>
+      <form class="sip" id="sip" onsubmit="return false">
+        <div class="sip-inputs">
+          <label class="field">
+            <span class="field-top"><span>Monthly investment</span><output id="o-amt"></output></span>
+            <input type="range" id="amt" min="500" max="100000" step="500" value="5000">
+          </label>
+          <label class="field">
+            <span class="field-top"><span>Expected return (p.a.)</span><output id="o-rate"></output></span>
+            <input type="range" id="rate" min="1" max="30" step="0.5" value="12">
+          </label>
+          <label class="field">
+            <span class="field-top"><span>Time period</span><output id="o-yrs"></output></span>
+            <input type="range" id="yrs" min="1" max="40" step="1" value="10">
+          </label>
+        </div>
+        <div class="sip-result">
+          <p class="mono small muted">Estimated value</p>
+          <p class="display big" id="r-total">₹0</p>
+          <div class="split" aria-hidden="true"><span id="bar-inv"></span></div>
+          <dl class="legend">
+            <div><dt><i class="sw sw-inv"></i>Invested</dt><dd id="r-inv">₹0</dd></div>
+            <div><dt><i class="sw sw-gain"></i>Est. returns</dt><dd id="r-gain">₹0</dd></div>
+          </dl>
+          <p class="fine">Assumes a constant annual return, compounded monthly. An estimate, not financial advice.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Why -->
+  <section class="why wrap" id="why">
+    <div class="section-head">
+      <p class="eyebrow">Why everythingzaroori</p>
+      <h2 class="display h2">As familiar as a kitchen drawer… but for your screen.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <svg class="ill" aria-hidden="true"><use href="#i-scissors"/></svg>
+        <h3>One job, done well</h3>
+        <p>Every app is focused. It opens, it works, you're done.</p>
+      </div>
+      <div class="why-card">
+        <svg class="ill" aria-hidden="true"><use href="#i-chai"/></svg>
+        <h3>Phone first</h3>
+        <p>Made for the bus, the queue, the chai break, wherever you are.</p>
+      </div>
+      <div class="why-card">
+        <svg class="ill" aria-hidden="true"><use href="#i-cooker"/></svg>
+        <h3>Made for India</h3>
+        <p>Rupees, lakhs and crores. Numbers the way we actually say them.</p>
+      </div>
+      <div class="why-card">
+        <svg class="ill" aria-hidden="true"><use href="#i-bulb"/></svg>
+        <h3>Light and quick</h3>
+        <p>Small pages that load fast, even on a patchy network.</p>
+      </div>
+      <div class="why-card">
+        <svg class="ill" aria-hidden="true"><use href="#i-bucket"/></svg>
+        <h3>No clutter</h3>
+        <p>No pop-ups shouting at you. Just the tool, front and centre.</p>
+      </div>
+      <div class="why-card">
+        <svg class="ill" aria-hidden="true"><use href="#i-plant"/></svg>
+        <h3>Always growing</h3>
+        <p>New zaroori apps join the shelf as they're built.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq wrap" id="faq">
+    <div class="faq-head">
+      <svg class="ill faq-ill" aria-hidden="true"><use href="#i-kettle"/></svg>
+      <div>
+        <p class="eyebrow">Questions</p>
+        <h2 class="display h2">Fair questions.</h2>
+      </div>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary><span class="num">01</span>What is EverythingZaroori?</summary>
+        <p>A collection of small web apps for daily life. Each one handles a single everyday job: planning, money maths, shopping, and more as the suite grows.</p>
+      </details>
+      <details>
+        <summary><span class="num">02</span>What does “zaroori” mean?</summary>
+        <p>It's Hindi for “necessary” or “essential”. The idea is simple: everything you actually need, nothing you don't.</p>
+      </details>
+      <details>
+        <summary><span class="num">03</span>Do I need to install anything?</summary>
+        <p>No. Everything runs in your browser on phone, tablet, or laptop.</p>
+      </details>
+      <details>
+        <summary><span class="num">04</span>Which apps are available?</summary>
+        <p>The SIP calculator preview is live on this page. The calendar and curated stores are coming soon, with more after that.</p>
+      </details>
+      <details>
+        <summary><span class="num">05</span>Is the SIP calculator financial advice?</summary>
+        <p>No. It shows an estimate based on a fixed rate of return. Real returns go up and down, so treat it as a rough guide.</p>
+      </details>
+      <details>
+        <summary><span class="num">06</span>Can I suggest an app?</summary>
+        <p>Please do. Write to <a href="mailto:hello@everythingzaroori.com">hello@everythingzaroori.com</a> with the zaroori tool you wish existed.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="closing wrap">
+    <svg class="ill closing-ill" aria-hidden="true"><use href="#i-umbrella"/></svg>
+    <h2 class="display h2">Everything zaroori. Nothing extra.</h2>
+    <p class="lede">Small tools for everyday life, all under one roof.</p>
+    <a class="btn btn-ink" href="#apps">Explore the apps</a>
+    <p class="tagline">Plan it. Calculate it. Buy it. Get on with your day.</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <a class="brand" href="#top">
+        <svg class="ill brand-mark" aria-hidden="true"><use href="#i-chai"/></svg>
+        <span>everythingzaroori</span>
+      </a>
+      <p class="muted small">everythingzaroori.com</p>
+      <p class="muted small">© <span id="year">2026</span> EverythingZaroori. Made in India.</p>
+    </div>
+    <div class="footer-cols">
+      <div>
+        <h4>Apps</h4>
+        <a href="#apps">Calendar</a>
+        <a href="#try">SIP Calculator</a>
+        <a href="#apps">Curated Stores</a>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <a href="#why">Why us</a>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:hello@everythingzaroori.com">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
